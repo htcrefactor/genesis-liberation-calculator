@@ -4,3 +4,77 @@
 @media(max-width:1150px){.workspace{grid-template-columns:360px minmax(0,1fr)}.boss-list{grid-template-columns:1fr}.quest-hero{min-height:290px}.planning-grid{grid-template-columns:1fr}.stage-grid{overflow-x:auto;grid-template-columns:repeat(8,110px)}.week-table-panel{order:1}.detail-panel{order:2}}
 @media(max-width:767px){.app-shell{padding:0;background-attachment:scroll}.tool-window{border:0;border-radius:0}.tool-titlebar{position:sticky;top:0;z-index:20;height:44px}.tool-titlebar strong{font-size:15px}.workspace{display:flex;flex-direction:column;padding:4px}.control-column{display:contents}.tool-tabs{order:1}.settings-panel{order:3}.boss-panel{order:6}.trace-card{order:5}.content-column{display:contents}.quest-hero{order:2;min-height:295px;padding:22px 16px 62px;grid-template-columns:1fr}.hero-copy h1{font-size:27px;margin-bottom:18px}.hero-copy p strong{font-size:26px}.hero-result{margin-top:16px;text-align:left}.hero-result>strong{font-size:21px}.stage-panel{order:4;overflow:hidden}.stage-grid{overflow-x:auto;grid-template-columns:repeat(8,102px)}.stage-grid article{height:112px}.planning-grid{display:contents}.week-table-panel{order:7;overflow:hidden}.week-table{overflow-x:auto}.week-row{min-width:610px;min-height:44px}.detail-panel{order:8}.action-bar{order:9}.settings-panel>label{grid-template-columns:100px 1fr}.boss-list{max-height:none}.boss-card{min-height:112px}.boss-toggle{min-height:58px}.boss-controls .select-shell select,.period-clear span{height:44px}.boss-controls .select-shell svg{top:15px}.planning-grid{min-height:0}.detail-split{grid-template-columns:1fr}.action-bar{display:grid;grid-template-columns:1fr 1fr}.action-bar button{min-width:0;height:48px}.disclaimer{padding:7px 12px 20px}.trace-card>div{grid-template-columns:44px 1fr}.trace-card small{grid-column:1/-1;margin-top:5px}.trace-card small b{display:inline;margin-left:8px}}
 @media print{.app-shell{background:#fff;padding:0}.tool-titlebar,.tool-tabs,.settings-panel,.boss-panel,.action-bar,.disclaimer{display:none}.workspace{display:block}.tool-window{box-shadow:none;border:0}.quest-hero{break-inside:avoid}.planning-grid{grid-template-columns:1fr 1fr}}
+
+/* In-game typography hierarchy: branded display type, neutral UI body type. */
+:root{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif}
+.tool-panel h2,.hero-copy h1,.stage-grid b,.pass-badge{font-family:Maplestory,"Apple SD Gothic Neo",sans-serif}
+.app-shell{padding:8px 12px}
+.workspace{gap:8px;padding:8px}
+.control-column,.content-column{gap:8px}
+.control-column{padding-right:7px}
+.tool-tabs button{font-weight:700}
+
+@media (min-width:1151px) and (max-height:1200px){
+  html,body,#root,.app-shell{height:100%;overflow:hidden}
+  .app-shell{padding:6px 10px}
+  .tool-window{height:calc(100vh - 28px);display:flex;flex-direction:column}
+  .tool-titlebar{height:40px;flex:0 0 40px;padding-inline:14px}
+  .tool-titlebar strong{font-size:17px}
+  .workspace{min-height:0;flex:1;grid-template-columns:410px minmax(0,1fr);gap:7px;padding:7px}
+  .control-column,.content-column{min-height:0;gap:6px}
+  .tool-tabs{height:34px;flex:0 0 34px}
+  .tool-tabs button{font-size:13px}
+  .tool-panel h2{height:31px;padding:6px 11px;font-size:13px}
+  .settings-panel{flex:0 0 auto;padding-bottom:5px}
+  .settings-panel>label{grid-template-columns:100px 1fr;padding:2px 10px;font-size:11px}
+  .select-shell select,.date-field,.number-field{height:25px}
+  .number-field input{height:23px}
+  .select-shell svg{top:6px}
+  .pass-control{margin:4px 10px 0;padding:4px;grid-template-columns:30px 1fr;gap:2px 6px}
+  .pass-control .boss-sigil{width:27px;height:27px}
+  .pass-control button{height:25px;font-size:11px}
+  .pass-control small{font-size:10px}
+  .boss-panel{flex:1;min-height:0;display:flex;flex-direction:column}
+  .boss-list{flex:1;min-height:0;max-height:none;padding:5px;gap:3px;overflow:auto}
+  .boss-toggle{min-height:34px;grid-template-columns:19px 25px 1fr;padding:2px}
+  .check-box{width:20px;height:20px}
+  .boss-sigil{width:24px;height:24px}
+  .boss-sigil svg{width:15px;height:15px}
+  .boss-copy b{font-size:11px}
+  .boss-controls{grid-template-columns:1fr 58px;padding:3px}
+  .boss-controls .select-shell select{height:22px;font-size:9px}
+  .boss-controls .select-shell svg{top:4px}
+  .period-clear span{height:19px;font-size:8px}
+  .trace-card{display:none}
+  .trace-card>div{min-height:45px;padding:5px 12px;grid-template-columns:35px 1fr auto}
+  .trace-card .trace-orb{width:31px;height:31px}
+  .trace-card strong{font-size:24px}
+  .trace-card small{font-size:9px}.trace-card small b{font-size:15px}
+  .quest-hero{min-height:0;height:200px;flex:0 0 200px;padding:18px 24px 44px}
+  .hero-copy>small{font-size:13px}
+  .hero-copy h1{margin:5px 0 14px;font-size:32px}
+  .hero-copy p{gap:8px;font-size:12px}
+  .hero-copy p .trace-orb{width:40px;height:40px}
+  .hero-copy p strong{font-size:27px}
+  .pass-badge{margin-top:9px;padding:7px 12px;font-size:11px}
+  .hero-result>strong{margin:5px 0;font-size:21px}
+  .hero-result span,.hero-result small{font-size:12px}.hero-result small b{font-size:19px}
+  .hero-progress{bottom:12px;height:21px}
+  .hero-progress b,.hero-progress small{top:2px;font-size:11px}
+  .stage-panel{flex:0 0 122px;padding-bottom:5px}
+  .stage-grid{padding:5px}
+  .stage-grid article{height:82px}
+  .stage-grid .roman{font-size:24px}.stage-grid b{margin-top:6px;font-size:10px}.stage-grid small{margin-top:4px;padding:3px 8px;font-size:9px}
+  .planning-grid{flex:1;min-height:0;grid-template-columns:minmax(430px,.95fr) minmax(360px,1.05fr);gap:6px;overflow:hidden}
+  .week-table-panel,.detail-panel{min-height:0;overflow:hidden}
+  .week-table{padding:4px;height:calc(100% - 31px);overflow:auto}
+  .week-row{min-height:25px;grid-template-columns:36px 1.2fr 75px 75px 1fr;font-size:9px}
+  .detail-panel dl{margin:5px;padding:3px 9px;font-size:10px}
+  .detail-panel dl div{grid-template-columns:105px 1fr;padding:4px 0}
+  .detail-split{gap:5px;margin:5px}.detail-split>div{padding:7px}.detail-split h3{margin-bottom:5px;font-size:11px}
+  .detail-split ul{max-height:116px}.detail-split li{padding:3px 0;font-size:9px}
+  .notice,.tip{padding:5px;margin:4px 0;font-size:9px}
+  .action-bar{flex:0 0 38px;padding:0;gap:8px}
+  .action-bar button{min-width:170px;height:36px;font-size:12px}
+  .disclaimer{height:16px;margin:1px auto 0;font-size:8px;line-height:14px}
+}

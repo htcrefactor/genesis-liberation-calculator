@@ -47,7 +47,7 @@ describe("흔적 계산", () => {
     expect(currentTotal(1, 9999)).toBe(2000);
   });
 
-  it("패스 솔로 최고 구성은 주간 1,410, 검마 1회 1,800이다", () => {
+  it("패스 솔로 최고 구성은 주간 1,410, 검은 마법사 1회 1,800이다", () => {
     const plans = createDefaultPlans();
     const weekly = plans.filter((plan) => plan.bossId !== "black-mage").reduce((sum, plan) => sum + traceReward(plan, true), 0);
     const blackMage = { ...plans.find((plan) => plan.bossId === "black-mage")!, enabled: true };

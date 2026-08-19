@@ -38,7 +38,7 @@ export const BOSSES: BossDefinition[] = [
   { id: "hilla", name: "진 힐라", shortName: "진 힐라", frequency: "weekly", difficulties: [
     { id: "normal", label: "노멀", traces: 45 }, { id: "hard", label: "하드", traces: 90 },
   ] },
-  { id: "black-mage", name: "검은 마법사", shortName: "검마", frequency: "monthly", difficulties: [
+  { id: "black-mage", name: "검은 마법사", shortName: "검은 마법사", frequency: "monthly", difficulties: [
     { id: "hard", label: "하드", traces: 600 }, { id: "extreme", label: "익스트림", traces: 600 },
   ] },
 ];

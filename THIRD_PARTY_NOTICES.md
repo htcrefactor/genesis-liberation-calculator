@@ -22,7 +22,16 @@ SHA-256 checksums of the redistributed, unmodified files:
 
 ## Generated visual assets
 
-`public/assets/liberation-chamber-bg.png` and `public/assets/quest-scroll.png` were generated specifically for this project with OpenAI image-generation tools. They are original fantasy-style assets; no MapleStory screenshots, character art, boss portraits, item icons, or official game artwork are redistributed by this repository.
+The following visuals were generated specifically for this project with OpenAI image-generation tools:
+
+- `public/assets/liberation-chamber-bg.png`
+- `public/assets/quest-scroll.png`
+- `public/assets/trace-orb.png`
+- `public/assets/bosses/*.png`
+
+They are original fantasy-style fan assets used for atmosphere and interface recognition. No MapleStory screenshots, official character or boss portraits, item pixels, logos, or official game artwork are redistributed by this repository. The boss medallions deliberately use distinct silhouettes and avoid recreating the official characters' identifying designs.
+
+As with any generated output, these assets are not guaranteed to be unique. They are included under the repository's license only to the extent the project owner holds rights in them; third-party trademarks and pre-existing rights remain with their owners.
 
 ## Open-source dependencies
 
@@ -31,4 +40,3 @@ Runtime and build dependencies are declared in `package.json` and locked with in
 ## Trademarks and fan-project status
 
 MapleStory, Nexon, and related names are trademarks of their respective owners. This project is an unofficial, non-commercial fan calculator and is not affiliated with or endorsed by Nexon Korea Corporation.
-

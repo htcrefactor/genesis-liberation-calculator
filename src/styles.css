@@ -79,8 +79,8 @@ body {
   margin: 0;
   color: var(--text);
   font-family: var(--body-font);
-  font-size: 13px;
-  line-height: 1.35;
+  font-size: 14px;
+  line-height: 1.42;
   background: var(--page);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -187,7 +187,7 @@ a {
 
 .tool-titlebar > strong {
   color: var(--lime);
-  font: 700 14px/1 var(--display-font);
+  font: 700 15px/1 var(--display-font);
   letter-spacing: .035em;
   text-shadow: 0 1px 2px rgb(0 0 0 / 90%);
 }
@@ -282,7 +282,7 @@ a {
 
 .tool-panel > h2,
 .sidebar-pane > h2 {
-  height: 30px;
+  height: 32px;
   display: flex;
   align-items: center;
   gap: 7px;
@@ -290,7 +290,7 @@ a {
   padding: 0 10px;
   border-bottom: 1px solid var(--line-soft);
   color: var(--text);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 750;
   background: linear-gradient(90deg, rgb(255 255 255 / 3.5%), transparent);
 }
@@ -299,7 +299,7 @@ a {
 .sidebar-pane > h2 small {
   margin-left: auto;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
 }
 
@@ -323,7 +323,7 @@ a {
   color: #a8b4ba;
   background: linear-gradient(#52616b, #27343d 68%, #1c282f);
   box-shadow: inset 0 1px rgb(255 255 255 / 18%), 0 1px 1px rgb(0 0 0 / 55%);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   text-shadow: 0 1px rgb(0 0 0 / 80%);
 }
@@ -356,7 +356,51 @@ a {
 
 .boss-pane {
   display: grid;
-  grid-template-rows: 30px minmax(0, 1fr) 30px;
+  grid-template-rows: 34px minmax(0, 1fr) 38px;
+}
+
+.boss-pane > h2 {
+  height: 34px;
+}
+
+.boss-pane-status {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+}
+
+.boss-pane-status small {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.boss-pane-status em {
+  max-width: 190px;
+  padding: 2px 6px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--muted);
+  background: var(--panel-deep);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.boss-pane-status em.on {
+  border-color: #92703a;
+  color: var(--gold-pale);
+  background: linear-gradient(#5b482d, #33271c);
+}
+
+.boss-pane-status em.expired {
+  border-color: #8f6238;
+  color: #e7bd8b;
+  background: #34251c;
 }
 
 .boss-list {
@@ -373,7 +417,7 @@ a {
   min-width: 0;
   min-height: 0;
   display: grid;
-  grid-template-rows: minmax(36px, 1fr) 28px;
+  grid-template-rows: 40px minmax(56px, 1fr);
   overflow: hidden;
   border: 1px solid var(--line-soft);
   border-radius: 4px;
@@ -401,7 +445,7 @@ a {
 .boss-heading {
   min-width: 0;
   display: grid;
-  grid-template-columns: 18px 34px minmax(0, 1fr);
+  grid-template-columns: 34px minmax(0, 1fr) 48px;
   align-items: center;
   gap: 6px;
   padding: 4px 6px;
@@ -409,42 +453,90 @@ a {
 }
 
 .boss-heading input,
-.clear-toggle input {
+.period-toggle input {
   position: absolute;
   width: 1px;
   height: 1px;
   opacity: 0;
 }
 
-.check-box {
-  width: 18px;
-  height: 18px;
-  display: grid;
-  place-items: center;
-  border: 1px solid #52636e;
-  border-radius: 3px;
-  color: transparent;
-  background: #10191f;
-  box-shadow: inset 0 1px 2px rgb(0 0 0 / 70%);
-}
-
-.check-box svg {
-  width: 13px;
-  height: 13px;
-}
-
-.boss-heading input:checked + .check-box {
-  border-color: var(--cyan-bright);
-  color: #fff;
-  background: linear-gradient(#43cce3, #0785a6);
-  box-shadow: 0 0 7px rgb(42 184 216 / 25%), inset 0 1px rgb(255 255 255 / 28%);
-}
-
-.boss-heading input:focus-visible + .check-box,
-.clear-toggle input:focus-visible + span {
+.boss-heading input:focus-visible ~ .switch-visual,
+.period-toggle input:focus-visible + span {
   outline: 2px solid #fff;
   outline-offset: 1px;
   box-shadow: 0 0 0 3px var(--cyan);
+}
+
+.switch-visual {
+  position: relative;
+  width: 58px;
+  height: 28px;
+  display: block;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 1px solid #586873;
+  border-radius: 15px;
+  color: #aeb9bf;
+  background: linear-gradient(#28343c, #11191e);
+  box-shadow: inset 0 2px 4px rgb(0 0 0 / 55%);
+  transition: border-color 140ms ease, background 140ms ease;
+}
+
+.switch-visual.compact {
+  width: 48px;
+  height: 24px;
+  border-radius: 13px;
+}
+
+.switch-state {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .02em;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+
+.switch-visual.is-off .switch-state {
+  right: 6px;
+}
+
+.switch-visual.is-on .switch-state {
+  left: 7px;
+}
+
+.switch-thumb {
+  position: absolute;
+  top: 3px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ced8dc;
+  border-radius: 50%;
+  background: linear-gradient(#f4f8f9, #9daeb6);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 65%);
+  transition: left 140ms ease, right 140ms ease, transform 140ms ease;
+}
+
+.switch-visual.compact .switch-thumb {
+  width: 16px;
+  height: 16px;
+}
+
+.switch-visual.is-off .switch-thumb {
+  left: 3px;
+}
+
+.switch-visual.is-on {
+  border-color: var(--cyan-bright);
+  color: #fff;
+  background: linear-gradient(#2fc1dc, #087b9a);
+  box-shadow: 0 0 7px rgb(42 184 216 / 25%), inset 0 1px rgb(255 255 255 / 22%);
+}
+
+.switch-visual.is-on .switch-thumb {
+  right: 3px;
 }
 
 .boss-copy {
@@ -456,7 +548,7 @@ a {
 .boss-copy b {
   overflow: hidden;
   color: var(--text);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 750;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -464,17 +556,50 @@ a {
 
 .boss-copy small {
   color: var(--muted);
-  font-size: 9px;
+  font-size: 10.5px;
 }
 
 .boss-controls {
   min-width: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 46px 27px 40px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: repeat(2, 27px);
+  grid-template-areas:
+    "difficulty reward"
+    "party period";
+  align-content: center;
   align-items: center;
-  gap: 3px;
-  padding: 3px 5px 4px;
+  gap: 4px;
+  padding: 4px 6px 5px;
   border-top: 1px solid var(--line-soft);
+}
+
+.difficulty-field {
+  grid-area: difficulty;
+}
+
+.party-field {
+  grid-area: party;
+}
+
+.selected-reward {
+  grid-area: reward;
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 3px;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.selected-reward b {
+  font-size: 11px;
+}
+
+.selected-reward .trace-icon {
+  width: 15px;
+  height: 15px;
 }
 
 .select-shell {
@@ -496,7 +621,7 @@ a {
 
 .select-shell select {
   width: 100%;
-  height: 24px;
+  height: 27px;
   padding: 0 18px 0 7px;
   border: 1px solid #465964;
   border-radius: 3px;
@@ -504,7 +629,7 @@ a {
   background: linear-gradient(#2e3c45, #202c34);
   box-shadow: inset 0 1px rgb(255 255 255 / 6%);
   appearance: none;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .select-shell select:focus-visible,
@@ -519,42 +644,38 @@ a {
   color: var(--dim);
 }
 
-.clear-toggle {
-  width: 27px;
-  height: 24px;
+.period-toggle {
+  grid-area: period;
+  min-width: 74px;
+  height: 27px;
   display: block;
   cursor: pointer;
 }
 
-.clear-toggle > span {
-  width: 27px;
-  height: 24px;
+.period-toggle > span {
+  min-width: 74px;
+  height: 27px;
   display: grid;
   place-items: center;
   border: 1px solid #43555f;
   border-radius: 3px;
   color: var(--muted);
   background: #17232a;
-}
-
-.clear-toggle input:checked + span {
-  border-color: #1da5c4;
-  color: var(--cyan-bright);
-  background: #12313a;
-}
-
-.clear-toggle svg {
-  width: 16px;
-  height: 16px;
-}
-
-.boss-controls > strong {
-  overflow: hidden;
-  color: var(--gold);
   font-size: 10px;
-  text-align: right;
-  text-overflow: ellipsis;
+  font-weight: 750;
   white-space: nowrap;
+}
+
+.period-toggle input:checked + span {
+  border-color: #1da5c4;
+  color: #fff;
+  background: linear-gradient(#2baac3, #12687e);
+  box-shadow: inset 0 1px rgb(255 255 255 / 18%);
+}
+
+.period-toggle input:disabled + span {
+  cursor: not-allowed;
+  opacity: .55;
 }
 
 .pane-hint,
@@ -567,8 +688,8 @@ a {
   padding: 0 8px;
   border-top: 1px solid var(--line-soft);
   color: var(--muted);
-  font-size: 9.5px;
-  line-height: 1.25;
+  font-size: 11px;
+  line-height: 1.3;
 }
 
 .pane-hint svg,
@@ -649,13 +770,13 @@ a {
 .selected-week-card small {
   display: block;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 10.5px;
 }
 
 .selected-week-card b {
   display: block;
   margin-top: 2px;
-  font-size: 11px;
+  font-size: 12px;
   white-space: nowrap;
 }
 
@@ -680,7 +801,7 @@ a {
 .pass-pane {
   display: grid;
   align-content: start;
-  grid-template-rows: 30px auto auto auto;
+  grid-template-rows: 32px auto auto auto;
 }
 
 .setting-stack {
@@ -695,7 +816,7 @@ a {
   align-items: center;
   gap: 8px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 650;
 }
 
@@ -783,7 +904,7 @@ a {
 .pass-comparison span {
   display: block;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 10.5px;
 }
 
 .snapshot-grid b,
@@ -808,6 +929,10 @@ a {
   box-shadow: inset 0 1px rgb(255 255 255 / 7%);
 }
 
+.pass-switch .switch-visual {
+  margin-left: auto;
+}
+
 .pass-switch.enabled {
   border-color: #9b7737;
   color: var(--gold-pale);
@@ -821,7 +946,8 @@ a {
   color: var(--gold);
 }
 
-.pass-switch span {
+.pass-switch-copy {
+  min-width: 0;
   display: grid;
   gap: 2px;
 }
@@ -832,7 +958,7 @@ a {
 
 .pass-switch small {
   color: var(--muted);
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .pass-season {
@@ -858,7 +984,7 @@ a {
 
 .pass-season small {
   color: var(--muted);
-  font-size: 9px;
+  font-size: 10.5px;
 }
 
 .pass-season b {
@@ -907,7 +1033,7 @@ a {
 .hero-result small {
   display: block;
   color: #bcc3c7;
-  font-size: 10px;
+  font-size: 11.5px;
 }
 
 .current-quest h1 {
@@ -924,7 +1050,7 @@ a {
   overflow: hidden;
   margin: 0;
   color: #c4c9cc;
-  font-size: 10px;
+  font-size: 11.5px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -967,7 +1093,7 @@ a {
   border-radius: 3px;
   color: var(--gold-pale);
   background: rgb(104 75 37 / 65%);
-  font-size: 9px;
+  font-size: 10.5px;
   font-style: normal;
 }
 
@@ -1027,7 +1153,7 @@ a {
   top: -3px;
   z-index: 1;
   color: #edf0f2;
-  font-size: 9px;
+  font-size: 10px;
   line-height: 14px;
   text-shadow: 0 1px 2px #000;
 }
@@ -1043,7 +1169,7 @@ a {
 
 .stage-panel {
   display: grid;
-  grid-template-rows: 30px minmax(0, 1fr);
+  grid-template-rows: 32px minmax(0, 1fr);
   overflow: hidden;
 }
 
@@ -1091,7 +1217,7 @@ a {
 
 .stage-grid b {
   overflow: hidden;
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.1;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1099,7 +1225,7 @@ a {
 
 .stage-grid small {
   padding-bottom: 3px;
-  font-size: 8px;
+  font-size: 9.5px;
 }
 
 .stage-grid article.complete {
@@ -1134,7 +1260,7 @@ a {
 
 .planner-panel {
   display: grid;
-  grid-template-rows: 30px minmax(0, 1fr);
+  grid-template-rows: 32px minmax(0, 1fr);
   overflow: hidden;
 }
 
@@ -1197,7 +1323,7 @@ a {
 }
 
 .week-tile b {
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .week-tile em {
@@ -1205,7 +1331,7 @@ a {
   border-radius: 2px;
   color: #241a0c;
   background: var(--gold);
-  font-size: 6.5px;
+  font-size: 9px;
   font-style: normal;
   font-weight: 800;
 }
@@ -1214,7 +1340,7 @@ a {
   grid-column: 1 / -1;
   overflow: hidden;
   color: var(--muted);
-  font-size: 7.5px;
+  font-size: 9.5px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1222,13 +1348,13 @@ a {
 .week-tile > strong {
   align-self: end;
   color: var(--gold);
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .week-tile > i {
   align-self: end;
   color: var(--muted);
-  font-size: 8px;
+  font-size: 9.5px;
   font-style: normal;
   text-align: right;
 }
@@ -1271,12 +1397,12 @@ a {
 
 .detail-meta small {
   color: var(--muted);
-  font-size: 7.5px;
+  font-size: 9.5px;
 }
 
 .detail-meta b {
   overflow: hidden;
-  font-size: 9.5px;
+  font-size: 11px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1325,17 +1451,17 @@ a {
 }
 
 .reward-grid article b {
-  font-size: 9.5px;
+  font-size: 11px;
 }
 
 .reward-grid article small {
   color: var(--muted);
-  font-size: 7.5px;
+  font-size: 9.5px;
 }
 
 .reward-grid article > strong {
   color: var(--gold);
-  font-size: 9.5px;
+  font-size: 11px;
 }
 
 .empty-plan {
@@ -1367,7 +1493,7 @@ a {
   border: 1px solid var(--line-soft);
   border-radius: 3px;
   background: var(--panel-deep);
-  font-size: 8px;
+  font-size: 10.5px;
   line-height: 1.2;
 }
 
@@ -1411,7 +1537,7 @@ a {
   border: 1px solid;
   border-radius: 4px;
   color: #e9eff1;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 750;
   text-shadow: 0 1px rgb(0 0 0 / 80%);
   box-shadow: inset 0 1px rgb(255 255 255 / 18%), 0 1px 2px rgb(0 0 0 / 60%);
@@ -1446,7 +1572,7 @@ a {
   padding: 2px 10px 0;
   border-top: 1px solid rgb(255 255 255 / 5%);
   color: #7f8c93;
-  font-size: 8.5px;
+  font-size: 10px;
   line-height: 14px;
   text-align: center;
   text-overflow: ellipsis;
@@ -1491,17 +1617,343 @@ a {
   }
 }
 
+@media (min-width: 1400px) and (min-height: 820px) {
+  body {
+    font-size: 16px;
+  }
+
+  .tool-window {
+    width: min(1840px, calc(100vw - 48px));
+    height: min(1000px, calc(100dvh - 56px));
+    grid-template-rows: 44px minmax(0, 1fr) 22px;
+  }
+
+  .tool-titlebar > strong {
+    font-size: 17px;
+  }
+
+  .workspace {
+    grid-template-columns: 470px minmax(0, 1fr);
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .control-column {
+    grid-template-rows: 42px minmax(0, 1fr) 72px;
+    gap: 8px;
+  }
+
+  .content-column {
+    grid-template-rows: 148px 108px minmax(0, 1fr) 40px;
+    gap: 8px;
+  }
+
+  .tool-panel > h2,
+  .sidebar-pane > h2 {
+    height: 36px;
+    padding-right: 12px;
+    padding-left: 12px;
+    font-size: 16px;
+  }
+
+  .tool-panel > h2 small,
+  .sidebar-pane > h2 small {
+    font-size: 12.5px;
+  }
+
+  .tool-tabs button {
+    font-size: 15px;
+  }
+
+  .boss-pane {
+    grid-template-rows: 38px minmax(0, 1fr) 42px;
+  }
+
+  .boss-pane > h2 {
+    height: 38px;
+  }
+
+  .boss-pane-status em {
+    max-width: 220px;
+    padding: 3px 8px;
+    font-size: 12px;
+  }
+
+  .boss-list {
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .boss-card {
+    grid-template-rows: 46px minmax(64px, 1fr);
+  }
+
+  .boss-heading {
+    grid-template-columns: 38px minmax(0, 1fr) 52px;
+    gap: 8px;
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .boss-portrait.small {
+    width: 38px;
+    height: 38px;
+  }
+
+  .boss-copy b {
+    font-size: 14px;
+  }
+
+  .boss-copy small {
+    font-size: 12px;
+  }
+
+  .switch-visual.compact {
+    width: 52px;
+    height: 26px;
+  }
+
+  .switch-visual.compact .switch-thumb {
+    width: 18px;
+    height: 18px;
+  }
+
+  .switch-state {
+    font-size: 11.5px;
+  }
+
+  .boss-controls {
+    grid-template-rows: repeat(2, 31px);
+    gap: 6px;
+    padding: 6px 8px 7px;
+  }
+
+  .select-shell select,
+  .period-toggle,
+  .period-toggle > span {
+    height: 31px;
+  }
+
+  .select-shell select {
+    padding-left: 9px;
+    font-size: 13.5px;
+  }
+
+  .period-toggle,
+  .period-toggle > span {
+    min-width: 84px;
+  }
+
+  .period-toggle > span,
+  .selected-reward b {
+    font-size: 12px;
+  }
+
+  .selected-reward {
+    min-width: 58px;
+  }
+
+  .pane-hint,
+  .pass-note {
+    gap: 7px;
+    padding-right: 11px;
+    padding-left: 11px;
+    font-size: 13px;
+  }
+
+  .selected-week-card {
+    grid-template-columns: 50px minmax(0, 1fr) auto;
+    gap: 12px;
+    padding: 9px 12px;
+  }
+
+  .week-emblem {
+    width: 44px;
+    height: 44px;
+    font-size: 19px;
+  }
+
+  .selected-week-card small {
+    font-size: 12px;
+  }
+
+  .selected-week-card b {
+    font-size: 14px;
+  }
+
+  .week-earning strong {
+    font-size: 15px;
+  }
+
+  .progress-pane,
+  .pass-pane,
+  .stage-panel,
+  .planner-panel {
+    grid-template-rows: 36px minmax(0, 1fr);
+  }
+
+  .progress-pane,
+  .pass-pane {
+    grid-template-rows: 36px auto auto auto;
+  }
+
+  .quest-hero {
+    gap: 18px;
+    padding: 13px 18px 25px;
+  }
+
+  .current-quest small,
+  .trace-summary small,
+  .hero-result span,
+  .hero-result small,
+  .current-quest p {
+    font-size: 13px;
+  }
+
+  .current-quest h1 {
+    font-size: clamp(25px, 2vw, 32px);
+  }
+
+  .trace-summary strong {
+    font-size: 26px;
+  }
+
+  .trace-summary span {
+    font-size: 14px;
+  }
+
+  .trace-summary em {
+    font-size: 12px;
+  }
+
+  .hero-result strong {
+    font-size: clamp(19px, 1.5vw, 24px);
+  }
+
+  .hero-progress {
+    height: 13px;
+  }
+
+  .hero-progress b,
+  .hero-progress small {
+    top: -1px;
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  .stage-grid {
+    gap: 6px;
+    padding: 7px 8px 8px;
+  }
+
+  .stage-grid article {
+    grid-template-columns: 31px minmax(0, 1fr);
+    padding: 6px 7px;
+  }
+
+  .stage-grid .roman {
+    font-size: 20px;
+  }
+
+  .stage-grid b {
+    font-size: 13px;
+  }
+
+  .stage-grid small {
+    font-size: 11.5px;
+  }
+
+  .planner-content {
+    grid-template-rows: 126px minmax(0, 1fr);
+    gap: 7px;
+    padding: 8px;
+  }
+
+  .week-board,
+  .reward-grid,
+  .detail-meta {
+    gap: 6px;
+  }
+
+  .week-tile {
+    padding: 6px 8px;
+  }
+
+  .week-tile b,
+  .week-tile > strong {
+    font-size: 13px;
+  }
+
+  .week-tile em {
+    font-size: 10px;
+  }
+
+  .week-tile > small,
+  .week-tile > i {
+    font-size: 11px;
+  }
+
+  .week-detail {
+    grid-template-rows: 48px minmax(0, 1fr) auto;
+    gap: 7px;
+  }
+
+  .detail-meta > div {
+    gap: 8px;
+    padding: 6px 9px;
+  }
+
+  .detail-meta small,
+  .reward-grid article small {
+    font-size: 11px;
+  }
+
+  .detail-meta b,
+  .reward-grid article b,
+  .reward-grid article > strong {
+    font-size: 12.5px;
+  }
+
+  .reward-grid article {
+    grid-template-columns: 34px minmax(0, 1fr) auto;
+    gap: 7px;
+    padding: 5px 8px 5px 5px;
+  }
+
+  .reward-grid .boss-portrait.small {
+    width: 32px;
+    height: 32px;
+  }
+
+  .alerts {
+    gap: 6px;
+  }
+
+  .alerts p {
+    min-height: 30px;
+    padding: 5px 9px;
+    font-size: 12px;
+  }
+
+  .game-button {
+    height: 40px;
+    font-size: 15px;
+  }
+
+  .disclaimer {
+    padding-top: 3px;
+    font-size: 11px;
+    line-height: 17px;
+  }
+}
+
 @media (max-width: 1320px) and (min-width: 1151px) {
   .workspace {
     grid-template-columns: 350px minmax(0, 1fr);
   }
 
-  .boss-controls {
-    grid-template-columns: minmax(0, 1fr) 43px 26px 36px;
-  }
-
   .boss-copy b {
-    font-size: 10px;
+    font-size: 11.5px;
   }
 
   .quest-hero {
@@ -1512,7 +1964,7 @@ a {
   }
 
   .stage-grid b {
-    font-size: 9px;
+    font-size: 10.5px;
   }
 
   .planner-content {
@@ -1547,11 +1999,11 @@ a {
   }
 
   .boss-card {
-    grid-template-rows: minmax(34px, 1fr) 27px;
+    grid-template-rows: 40px minmax(54px, 1fr);
   }
 
   .boss-heading {
-    grid-template-columns: 17px 31px minmax(0, 1fr);
+    grid-template-columns: 31px minmax(0, 1fr) 48px;
     gap: 4px;
     padding: 3px 4px;
   }
@@ -1562,7 +2014,7 @@ a {
   }
 
   .pane-hint {
-    font-size: 8.5px;
+    font-size: 10.5px;
   }
 
   .planner-content {
@@ -1633,17 +2085,17 @@ a {
 
   .boss-pane {
     display: grid;
-    grid-template-rows: 30px auto 38px;
+    grid-template-rows: 34px auto 42px;
   }
 
   .boss-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(4, 76px);
+    grid-template-rows: repeat(4, 108px);
     overflow: visible;
   }
 
   .boss-card {
-    min-height: 72px;
+    min-height: 104px;
   }
 
   .selected-week-card {
@@ -1703,7 +2155,7 @@ a {
   .disclaimer {
     min-height: 30px;
     padding: 7px 10px;
-    font-size: 9px;
+    font-size: 10.5px;
     line-height: 1.35;
     white-space: normal;
   }
@@ -1752,27 +2204,30 @@ a {
 
   .boss-list {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(8, 100px);
+    grid-template-rows: repeat(8, 146px);
     gap: 6px;
     padding: 7px;
   }
 
   .boss-pane {
-    grid-template-rows: 30px auto 44px;
+    grid-template-rows: 44px auto auto;
+  }
+
+  .boss-pane > h2 {
+    height: 44px;
+  }
+
+  .boss-pane-status em {
+    max-width: 175px;
   }
 
   .boss-card {
-    grid-template-rows: 48px 48px;
+    grid-template-rows: 50px 92px;
   }
 
   .boss-heading {
-    grid-template-columns: 22px 40px minmax(0, 1fr);
-    min-height: 48px;
-  }
-
-  .check-box {
-    width: 22px;
-    height: 22px;
+    grid-template-columns: 40px minmax(0, 1fr) 58px;
+    min-height: 50px;
   }
 
   .boss-portrait.small {
@@ -1789,26 +2244,42 @@ a {
   }
 
   .boss-controls {
-    grid-template-columns: minmax(0, 1fr) 64px 44px 55px;
-    gap: 5px;
-    min-height: 48px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: repeat(2, 44px);
+    gap: 4px 6px;
+    min-height: 92px;
+    padding: 3px 7px 4px;
   }
 
   .select-shell select,
-  .clear-toggle,
-  .clear-toggle > span {
+  .period-toggle,
+  .period-toggle > span {
     height: 44px;
   }
 
-  .clear-toggle,
-  .clear-toggle > span {
-    width: 44px;
+  .period-toggle,
+  .period-toggle > span {
+    min-width: 92px;
+  }
+
+  .selected-reward {
+    min-width: 62px;
+  }
+
+  .switch-visual.compact {
+    width: 58px;
+    height: 28px;
+  }
+
+  .switch-visual.compact .switch-thumb {
+    width: 20px;
+    height: 20px;
   }
 
   .pane-hint {
-    min-height: 44px;
+    min-height: 54px;
     padding: 7px 9px;
-    font-size: 10px;
+    font-size: 11.5px;
   }
 
   .setting-stack > label {

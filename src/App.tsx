@@ -3,8 +3,6 @@ import {
   ArrowCounterClockwise,
   CalendarBlank,
   CaretDown,
-  Check,
-  CheckCircle,
   Hourglass,
   Info,
   Moon,
@@ -16,11 +14,12 @@ import {
   WarningCircle,
 } from "@phosphor-icons/react";
 import { BOSSES, createDefaultPlans, createDetailedWeeks, DATA_AS_OF, PASS_END, STAGES, TOTAL_TRACES, TRACE_CAP } from "./data";
-import { forecast, traceReward } from "./engine";
+import { forecast, traceReward, weekStartFor } from "./engine";
 import type { BossPlan, CalculatorState, Theme } from "./types";
 
 const STORAGE_KEY = "genesis-liberation-calculator:v1";
 const TODAY = "2026-08-19";
+const DAY_MS = 24 * 60 * 60 * 1000;
 const number = new Intl.NumberFormat("ko-KR");
 const fullDate = new Intl.DateTimeFormat("ko-KR", { year: "numeric", month: "long", day: "numeric", timeZone: "Asia/Seoul" });
 const rangeDate = new Intl.DateTimeFormat("ko-KR", { month: "2-digit", day: "2-digit", timeZone: "Asia/Seoul" });
@@ -85,8 +84,15 @@ function loadState(): CalculatorState {
   }
 }
 
-function SelectShell({ children }: { children: ReactNode }) {
-  return <span className="select-shell">{children}<CaretDown weight="bold" aria-hidden="true" /></span>;
+function SelectShell({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <span className={`select-shell ${className}`.trim()}>{children}<CaretDown weight="bold" aria-hidden="true" /></span>;
+}
+
+function SwitchVisual({ checked, compact = false }: { checked: boolean; compact?: boolean }) {
+  return <span className={`switch-visual ${checked ? "is-on" : "is-off"} ${compact ? "compact" : ""}`} aria-hidden="true">
+    <span className="switch-state">{checked ? "ON" : "OFF"}</span>
+    <span className="switch-thumb" />
+  </span>;
 }
 
 function BossPortrait({ bossId, size = "normal", decorative = false }: { bossId: string; size?: "small" | "normal" | "large"; decorative?: boolean }) {
@@ -104,21 +110,25 @@ function BossList({ plans, passApplied, onChange }: { plans: BossPlan[]; passApp
   return <div className="boss-list">{plans.map((plan, index) => {
     const boss = BOSSES.find((item) => item.id === plan.bossId)!;
     const reward = traceReward(plan, passApplied);
+    const periodLabel = boss.frequency === "monthly" ? "이번 달" : "이번 주";
     return <article className={`boss-card ${plan.enabled ? "selected" : "disabled"}`} key={boss.id}>
       <label className="boss-heading">
-        <input type="checkbox" checked={plan.enabled} onChange={(event) => patch(index, { enabled: event.target.checked })} />
-        <span className="check-box" aria-hidden="true"><Check weight="bold" /></span>
+        <input type="checkbox" role="switch" aria-label={`${boss.name} 계획 포함`} checked={plan.enabled} onChange={(event) => patch(index, { enabled: event.target.checked })} />
         <BossPortrait bossId={boss.id} size="small" decorative />
         <span className="boss-copy"><b>{boss.name}</b><small>{boss.frequency === "monthly" ? "월간 보스" : "주간 보스"}</small></span>
+        <SwitchVisual checked={plan.enabled} compact />
       </label>
       <div className="boss-controls">
-        <SelectShell><select aria-label={`${boss.name} 난이도`} disabled={!plan.enabled} value={plan.difficultyId} onChange={(event) => patch(index, { difficultyId: event.target.value })}>{boss.difficulties.map((difficulty) => <option key={difficulty.id} value={difficulty.id}>{difficulty.label}</option>)}</select></SelectShell>
-        <SelectShell><select aria-label={`${boss.name} 파티 인원`} disabled={!plan.enabled} value={plan.partySize} onChange={(event) => patch(index, { partySize: Number(event.target.value) })}>{[1, 2, 3, 4, 5, 6].map((party) => <option key={party} value={party}>{party}인</option>)}</select></SelectShell>
-        <label className="clear-toggle" title="이번 주 또는 이번 달에 이미 처치함">
-          <input type="checkbox" checked={plan.clearedCurrentPeriod} disabled={!plan.enabled} onChange={(event) => patch(index, { clearedCurrentPeriod: event.target.checked })} />
-          <span><CheckCircle weight={plan.clearedCurrentPeriod ? "fill" : "regular"} aria-hidden="true" /><span className="sr-only">{boss.name} 처치 완료</span></span>
+        <SelectShell className="difficulty-field"><select aria-label={`${boss.name} 난이도와 예상 어둠의 흔적`} disabled={!plan.enabled} value={plan.difficultyId} onChange={(event) => patch(index, { difficultyId: event.target.value })}>{boss.difficulties.map((difficulty) => {
+          const difficultyReward = traceReward({ ...plan, enabled: true, difficultyId: difficulty.id }, passApplied);
+          return <option key={difficulty.id} value={difficulty.id}>{difficulty.label} · +{number.format(difficultyReward)} 흔적</option>;
+        })}</select></SelectShell>
+        <span className="selected-reward" aria-label={`선택 난이도 예상 획득량 ${number.format(reward)}`}><TraceIcon size="small" /><b>+{number.format(reward)}</b></span>
+        <SelectShell className="party-field"><select aria-label={`${boss.name} 파티 인원`} disabled={!plan.enabled} value={plan.partySize} onChange={(event) => patch(index, { partySize: Number(event.target.value) })}>{[1, 2, 3, 4, 5, 6].map((party) => <option key={party} value={party}>{party}인 파티</option>)}</select></SelectShell>
+        <label className="period-toggle" title={`${periodLabel}에 이미 처치했다면 켜세요`}>
+          <input type="checkbox" role="switch" aria-label={`${boss.name} ${periodLabel} 처치 완료`} checked={plan.clearedCurrentPeriod} disabled={!plan.enabled} onChange={(event) => patch(index, { clearedCurrentPeriod: event.target.checked })} />
+          <span aria-hidden="true">{plan.clearedCurrentPeriod ? "처치 완료" : "미처치"}</span>
         </label>
-        <strong aria-label={`예상 획득량 ${number.format(reward)}`}>+{number.format(reward)}</strong>
       </div>
     </article>;
   })}</div>;
@@ -151,6 +161,13 @@ export function App() {
   const currentStage = STAGES[state.currentStage] ?? STAGES[0];
   const progressPercent = Math.min(100, result.currentTotal / TOTAL_TRACES * 100);
   const passEnd = new Date(PASS_END);
+  const selectedWeekStart = new Date(weekStartFor(state.startDate).getTime() + selectedWeek * 7 * DAY_MS);
+  const selectedWeekPassApplied = state.genesisPass && selectedWeekStart.getTime() <= passEnd.getTime();
+  const selectedWeekPassStatus = !state.genesisPass
+    ? { className: "off", label: "패스 OFF · 기본 획득" }
+    : selectedWeekPassApplied
+      ? { className: "on", label: "패스 ON · 흔적 3배" }
+      : { className: "expired", label: "구매 ON · 이 주차 미적용" };
   const updateWeekPlans = (plans: BossPlan[]) => setState((previous) => ({ ...previous, detailedWeeks: previous.detailedWeeks.map((item, index) => index === selectedWeek ? { ...item, plans } : item) }));
 
   useEffect(() => { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }, [state]);
@@ -196,15 +213,15 @@ export function App() {
             </section>}
 
             {activeTab === "bosses" && <section className="tool-panel sidebar-pane boss-pane">
-              <h2>보스 계획 <small>{selectedWeek + 1}주차</small></h2>
-              <BossList plans={week?.plans ?? []} passApplied={Boolean(weekResult?.passApplied ?? state.genesisPass)} onChange={updateWeekPlans} />
-              <p className="pane-hint"><Info weight="fill" /> 초상은 보스 식별을 돕는 팬 제작 이미지입니다. 난이도와 파티 인원에 따라 흔적이 즉시 계산됩니다.</p>
+              <h2><span>보스 계획</span><span className="boss-pane-status"><small>{selectedWeek + 1}주차</small><em className={selectedWeekPassStatus.className}>{selectedWeekPassStatus.label}</em></span></h2>
+              <BossList plans={week?.plans ?? []} passApplied={selectedWeekPassApplied} onChange={updateWeekPlans} />
+              <p className="pane-hint"><Info weight="fill" /> 난이도별 수치는 선택 주차의 파티 인원과 패스 효과를 반영한 1인 획득량입니다.</p>
             </section>}
 
             {activeTab === "pass" && <section className="tool-panel sidebar-pane pass-pane">
               <h2>제네시스 패스</h2>
-              <button type="button" className={`pass-switch ${state.genesisPass ? "enabled" : ""}`} aria-pressed={state.genesisPass} onClick={() => setState((previous) => ({ ...previous, genesisPass: !previous.genesisPass }))}>
-                <SealCheck weight="fill" /><span><b>{state.genesisPass ? "패스 효과 적용 중" : "패스 효과 미적용"}</b><small>보스 처치 흔적 획득량 3배</small></span>
+              <button type="button" role="switch" className={`pass-switch ${state.genesisPass ? "enabled" : ""}`} aria-label="제네시스 패스 구매" aria-checked={state.genesisPass} onClick={() => setState((previous) => ({ ...previous, genesisPass: !previous.genesisPass }))}>
+                <SealCheck weight="fill" /><span className="pass-switch-copy"><b>제네시스 패스 구매</b><small>보스 처치 시 어둠의 흔적 3배</small></span><SwitchVisual checked={state.genesisPass} />
               </button>
               <div className="pass-season"><CalendarBlank weight="fill" /><span><small>효과 종료</small><b>{fullDate.format(passEnd)}</b></span></div>
               <div className="pass-comparison"><div><small>패스 적용</small><b>{result.weeksRemaining ? `${result.weeksRemaining}주` : "계산 불가"}</b><span>{result.expectedDate ? fullDate.format(result.expectedDate) : "—"}</span></div><div><small>패스 미적용</small><b>{resultWithoutPass.weeksRemaining ? `${resultWithoutPass.weeksRemaining}주` : "계산 불가"}</b><span>{resultWithoutPass.expectedDate ? fullDate.format(resultWithoutPass.expectedDate) : "—"}</span></div></div>

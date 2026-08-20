@@ -35,33 +35,39 @@
   --lime: #d9ff1a;
   --warning: #ef9d43;
   --shadow: rgb(0 0 0 / 52%);
+  --on-dark-text: #e9eff2;
+  --on-dark-muted: #bac5ca;
+  --on-dark-lime: #d9ff1a;
+  --on-dark-gold: #e0b957;
+  --on-dark-gold-pale: #f5df9a;
+  --on-dark-purple: #d0a2ff;
   --body-font: Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", Inter, system-ui, sans-serif;
   --display-font: Maplestory, "Apple SD Gothic Neo", sans-serif;
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
-  --page: #d9e4e9;
-  --window: #edf3f6;
-  --panel: #f7fafb;
-  --panel-deep: #dce7ec;
-  --panel-soft: #e9f1f4;
-  --line: #8399a5;
-  --line-soft: #b5c5cd;
-  --text: #23313a;
-  --muted: #596b76;
-  --dim: #72858f;
-  --cyan: #149bbd;
-  --cyan-bright: #35c5df;
-  --cyan-deep: #08758f;
-  --gold: #a87517;
-  --gold-pale: #7f5812;
-  --purple: #7c48ad;
-  --red: #b33f38;
-  --red-deep: #f1d7d2;
-  --lime: #5b7500;
-  --warning: #a95b10;
-  --shadow: rgb(18 39 50 / 25%);
+  --page: #cbd7dc;
+  --window: #bccbd2;
+  --panel: #eaf0f2;
+  --panel-deep: #d4dfe3;
+  --panel-soft: #e2eaed;
+  --line: #718792;
+  --line-soft: #a9bac2;
+  --text: #24323a;
+  --muted: #4f636d;
+  --dim: #63757f;
+  --cyan: #087f9a;
+  --cyan-bright: #29bdd7;
+  --cyan-deep: #06697f;
+  --gold: #835b0d;
+  --gold-pale: #73500e;
+  --purple: #70419d;
+  --red: #9f3f38;
+  --red-deep: #ead1ce;
+  --lime: #587000;
+  --warning: #95500c;
+  --shadow: rgb(27 43 52 / 28%);
 }
 
 * {
@@ -1585,27 +1591,374 @@ a {
 
 :root[data-theme="light"] .app-shell {
   background:
-    linear-gradient(rgb(225 236 241 / 67%), rgb(213 224 229 / 82%)),
+    linear-gradient(180deg, rgb(221 230 234 / 55%), rgb(126 143 153 / 72%)),
     url("/assets/liberation-chamber-bg.png") center 28% / cover fixed no-repeat,
     var(--page);
 }
 
-:root[data-theme="light"] .tool-window {
-  background: linear-gradient(145deg, #dce8ed, #bfced5);
+:root[data-theme="light"] .app-shell::before {
+  background:
+    radial-gradient(circle at 50% 42%, rgb(255 255 255 / 20%) 0 25%, transparent 58%, rgb(35 51 60 / 26%) 100%),
+    repeating-linear-gradient(135deg, transparent 0 3px, rgb(255 255 255 / 2.5%) 3px 4px);
 }
 
-:root[data-theme="light"] .tool-titlebar,
-:root[data-theme="light"] .tool-tabs,
-:root[data-theme="light"] .icon-button,
-:root[data-theme="light"] .game-button,
+:root[data-theme="light"] .tool-window {
+  border-color: #536c78;
+  background: linear-gradient(145deg, #cbd8dd, #aebfc7);
+  box-shadow:
+    0 22px 70px rgb(25 40 49 / 38%),
+    0 0 0 2px rgb(47 67 77 / 72%),
+    inset 0 1px rgb(255 255 255 / 68%);
+}
+
+:root[data-theme="light"] .tool-titlebar > strong {
+  color: var(--on-dark-lime);
+}
+
+:root[data-theme="light"] .tool-panel,
+:root[data-theme="light"] .selected-week-card {
+  background:
+    linear-gradient(145deg, rgb(255 255 255 / 54%), transparent 38%),
+    var(--panel);
+  box-shadow:
+    0 0 0 1px rgb(61 82 92 / 46%),
+    inset 0 1px rgb(255 255 255 / 86%);
+}
+
+:root[data-theme="light"] .tool-panel > h2,
+:root[data-theme="light"] .sidebar-pane > h2 {
+  border-bottom-color: #93a7b0;
+  background: linear-gradient(180deg, #e5ecef, #c8d5da);
+  box-shadow: inset 0 1px rgb(255 255 255 / 82%);
+}
+
+:root[data-theme="light"] .tool-tabs {
+  border-color: #506670;
+  background: #30414a;
+  box-shadow: 0 0 0 1px rgb(45 62 70 / 72%), inset 0 1px rgb(255 255 255 / 12%);
+}
+
+:root[data-theme="light"] .tool-tabs button {
+  border-color: #63747d;
+  color: #eef3f5;
+  background: linear-gradient(#66757e, #3f5059 68%, #2d3e47);
+}
+
+:root[data-theme="light"] .tool-tabs button:hover {
+  color: #fff;
+}
+
+:root[data-theme="light"] .tool-tabs button.active {
+  border-color: #63e0f2;
+  color: #fff;
+  background: linear-gradient(#08758e, #07687f 62%, #05566b);
+}
+
 :root[data-theme="light"] .select-shell select,
+:root[data-theme="light"] .setting-stack .select-shell select,
 :root[data-theme="light"] .date-field,
 :root[data-theme="light"] .number-field input {
-  color: #f5f8f9;
+  border-color: #718894;
+  color: var(--text);
+  background: linear-gradient(#fbfcfd, #d9e4e8);
+  box-shadow: inset 0 1px rgb(255 255 255 / 92%), 0 1px rgb(52 73 83 / 12%);
+}
+
+:root[data-theme="light"] .select-shell select:disabled,
+:root[data-theme="light"] .setting-stack .select-shell select:disabled {
+  color: var(--dim);
+  background: #cbd6da;
+}
+
+:root[data-theme="light"] .select-shell > svg {
+  color: #435861;
+}
+
+:root[data-theme="light"] .icon-button:focus-visible,
+:root[data-theme="light"] .tool-tabs button:focus-visible,
+:root[data-theme="light"] .week-tile:focus-visible,
+:root[data-theme="light"] .game-button:focus-visible,
+:root[data-theme="light"] .pass-switch:focus-visible,
+:root[data-theme="light"] .boss-heading input:focus-visible ~ .switch-visual,
+:root[data-theme="light"] .period-toggle input:focus-visible + span,
+:root[data-theme="light"] .select-shell select:focus-visible,
+:root[data-theme="light"] .date-field:focus-visible,
+:root[data-theme="light"] .number-field input:focus-visible {
+  outline-color: #17313d;
+  border-color: #17313d;
+  box-shadow: 0 0 0 4px var(--cyan-bright);
+}
+
+:root[data-theme="light"] .switch-visual.is-off {
+  border-color: #8499a3;
+  color: #354952;
+  background: linear-gradient(#d4dde1, #aebdc4);
+  box-shadow: inset 0 1px 3px rgb(44 64 73 / 24%);
+}
+
+:root[data-theme="light"] .switch-visual.is-off .switch-thumb {
+  border-color: #7f939d;
+  background: linear-gradient(#fff, #d8e1e4);
+  box-shadow: 0 1px 3px rgb(46 64 73 / 36%);
+}
+
+:root[data-theme="light"] .switch-visual.is-on {
+  border-color: #05566b;
+  color: #fff;
+  background: linear-gradient(#08758e, #05566b);
+}
+
+:root[data-theme="light"] .period-toggle > span {
+  border-color: #7d919b;
+  color: #40545e;
+  background: linear-gradient(#edf2f4, #c7d4d9);
+  box-shadow: inset 0 1px rgb(255 255 255 / 74%);
+}
+
+:root[data-theme="light"] .period-toggle input:checked + span {
+  border-color: #05566b;
+  color: #fff;
+  background: linear-gradient(#08758e, #05566b);
+}
+
+:root[data-theme="light"] .boss-card {
+  background: linear-gradient(135deg, #edf2f4, #d6e0e4);
+  box-shadow: inset 0 1px rgb(255 255 255 / 74%);
+}
+
+:root[data-theme="light"] .boss-card.selected {
+  border-color: #0a829d;
+  background: linear-gradient(135deg, #eef7f8, #d0e4e8);
+  box-shadow: inset 3px 0 var(--cyan), inset 0 1px rgb(255 255 255 / 80%);
+}
+
+:root[data-theme="light"] .boss-card.disabled {
+  background: linear-gradient(135deg, #d7e0e3, #c6d2d7);
+}
+
+:root[data-theme="light"] .boss-card.disabled .boss-portrait,
+:root[data-theme="light"] .boss-card.disabled .boss-controls {
+  opacity: .72;
+}
+
+:root[data-theme="light"] .boss-pane-status em.on {
+  border-color: #b18a3d;
+  color: #68470e;
+  background: linear-gradient(#f5ecd8, #dfc994);
+}
+
+:root[data-theme="light"] .boss-pane-status em.expired {
+  border-color: #bd8953;
+  color: #70461f;
+  background: #f0ddc8;
+}
+
+:root[data-theme="light"] .progress-snapshot,
+:root[data-theme="light"] .snapshot-grid > div,
+:root[data-theme="light"] .pass-comparison > div,
+:root[data-theme="light"] .pass-season,
+:root[data-theme="light"] .pass-note,
+:root[data-theme="light"] .detail-meta > div,
+:root[data-theme="light"] .alerts p {
+  background: linear-gradient(145deg, #e3ebee, #cedade);
+  box-shadow: inset 0 1px rgb(255 255 255 / 64%);
+}
+
+:root[data-theme="light"] .progress-pane,
+:root[data-theme="light"] .pass-pane {
+  background:
+    linear-gradient(180deg, rgb(234 240 242 / 98%) 0 48%, rgb(208 220 225 / 88%) 100%),
+    url("/assets/liberation-chamber-bg.png") center 42% / cover no-repeat;
+}
+
+:root[data-theme="light"] .pass-switch {
+  border-color: #9babb2;
+  color: var(--text);
+  background: linear-gradient(#e7edef, #cad6da);
+  box-shadow: inset 0 1px rgb(255 255 255 / 76%);
+}
+
+:root[data-theme="light"] .pass-switch.enabled {
+  border-color: #b28c43;
+  color: #62450e;
+  background: linear-gradient(#f5ecd9, #dfc995);
+  box-shadow: 0 0 12px rgb(152 105 21 / 12%), inset 0 1px rgb(255 255 255 / 72%);
+}
+
+:root[data-theme="light"] .pass-switch small,
+:root[data-theme="light"] .pass-season small {
+  color: #53646d;
+}
+
+:root[data-theme="light"] .week-emblem {
+  color: var(--on-dark-gold-pale);
 }
 
 :root[data-theme="light"] .quest-hero {
-  color: #eef2f3;
+  border-color: #71504b;
+  color: var(--on-dark-text);
+  box-shadow: 0 0 0 1px rgb(48 58 63 / 76%), inset 0 1px rgb(255 255 255 / 10%);
+}
+
+:root[data-theme="light"] .quest-hero .current-quest small,
+:root[data-theme="light"] .quest-hero .trace-summary small,
+:root[data-theme="light"] .quest-hero .hero-result span,
+:root[data-theme="light"] .quest-hero .hero-result small {
+  color: var(--on-dark-muted);
+}
+
+:root[data-theme="light"] .quest-hero .current-quest h1,
+:root[data-theme="light"] .quest-hero .current-quest p b,
+:root[data-theme="light"] .quest-hero .hero-result small b,
+:root[data-theme="light"] .quest-hero .trace-summary em {
+  color: var(--on-dark-gold-pale);
+}
+
+:root[data-theme="light"] .quest-hero .current-quest p {
+  color: #cbd2d5;
+}
+
+:root[data-theme="light"] .quest-hero .trace-summary strong {
+  color: var(--on-dark-purple);
+}
+
+:root[data-theme="light"] .quest-hero .trace-summary span {
+  color: var(--on-dark-muted);
+}
+
+:root[data-theme="light"] .quest-hero .hero-result strong {
+  color: var(--on-dark-gold);
+}
+
+:root[data-theme="light"] .quest-hero .hero-result > svg {
+  color: #d8e0e3;
+}
+
+:root[data-theme="light"] .stage-grid article {
+  border-color: #8fa1aa;
+  color: #3f535d;
+  background: linear-gradient(145deg, #d4dee2, #bccbd1);
+  box-shadow: inset 0 1px rgb(255 255 255 / 68%);
+}
+
+:root[data-theme="light"] .stage-grid article::after {
+  background: #8799a2;
+}
+
+:root[data-theme="light"] .stage-grid .roman {
+  color: #514746;
+}
+
+:root[data-theme="light"] .stage-grid article.complete {
+  border-color: #9a86a7;
+  color: #44384b;
+  background: linear-gradient(145deg, #e6dfea, #cfc4d8);
+}
+
+:root[data-theme="light"] .stage-grid article.complete .roman {
+  color: #765388;
+}
+
+:root[data-theme="light"] .stage-grid article.complete::after {
+  background: #8c62a0;
+}
+
+:root[data-theme="light"] .stage-grid article.active {
+  border-color: #b64d43;
+  color: #5f2825;
+  background: linear-gradient(145deg, #f1d9d5, #ddb5af);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 44%), 0 0 8px rgb(159 63 56 / 18%);
+}
+
+:root[data-theme="light"] .stage-grid article.active .roman {
+  color: #933d2c;
+}
+
+:root[data-theme="light"] .week-tile {
+  background: linear-gradient(145deg, #e6edef, #cedade);
+  box-shadow: inset 0 1px rgb(255 255 255 / 72%);
+}
+
+:root[data-theme="light"] .week-tile:hover {
+  border-color: #4c8290;
+  filter: brightness(1.02);
+}
+
+:root[data-theme="light"] .week-tile.active {
+  border-color: #ad463f;
+  color: #512522;
+  background: linear-gradient(145deg, #f2ddda, #dfbbb5);
+  box-shadow: inset 3px 0 var(--red), inset 0 1px rgb(255 255 255 / 64%), 0 0 8px rgb(159 63 56 / 15%);
+}
+
+:root[data-theme="light"] .week-tile.active > small,
+:root[data-theme="light"] .week-tile.active > i {
+  color: #744943;
+}
+
+:root[data-theme="light"] .week-tile.active > strong {
+  color: #7b4f0d;
+}
+
+:root[data-theme="light"] .week-tile em {
+  color: #fffaf0;
+  background: #966a15;
+}
+
+:root[data-theme="light"] .detail-meta svg {
+  color: #536670;
+}
+
+:root[data-theme="light"] .reward-grid article {
+  background: linear-gradient(90deg, #e6edef, #cfdade);
+  box-shadow: inset 0 1px rgb(255 255 255 / 62%);
+}
+
+:root[data-theme="light"] .empty-plan {
+  border-color: #9fb1b9;
+  color: #4f636d;
+  background:
+    linear-gradient(rgb(228 237 240 / 82%), rgb(195 209 215 / 88%)),
+    url("/assets/liberation-chamber-bg.png") center 42% / cover no-repeat;
+}
+
+:root[data-theme="light"] .alerts .notice {
+  border-color: #d7b97d;
+  color: #704815;
+  background: linear-gradient(145deg, #f7efe1, #ebdcc0);
+}
+
+:root[data-theme="light"] .alerts .tip {
+  border-color: #9fc3cb;
+  color: #315a67;
+  background: linear-gradient(145deg, #e8f3f5, #d5e7eb);
+}
+
+:root[data-theme="light"] .game-button {
+  text-shadow: none;
+  box-shadow: inset 0 1px rgb(255 255 255 / 54%), 0 1px 2px rgb(49 68 77 / 30%);
+}
+
+:root[data-theme="light"] .game-button.secondary {
+  border-color: #71858f;
+  color: #273740;
+  background: linear-gradient(#e7edef, #bfccd2 65%, #aebdc4);
+}
+
+:root[data-theme="light"] .game-button.primary {
+  border-color: #05566b;
+  color: #fff;
+  background: linear-gradient(#08758e, #07687f 60%, #05566b);
+  text-shadow: 0 1px rgb(0 0 0 / 42%);
+}
+
+:root[data-theme="light"] .disclaimer {
+  border-top-color: rgb(70 94 105 / 18%);
+  color: #344a54;
+}
+
+:root[data-theme="light"] .disclaimer a {
+  color: #274b59;
 }
 
 @media (min-width: 1151px) {
@@ -2168,6 +2521,44 @@ a {
 
   .app-shell {
     padding: 7px;
+  }
+
+  .workspace {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .control-column,
+  .content-column {
+    display: contents;
+  }
+
+  .quest-hero {
+    order: 1;
+  }
+
+  .tool-tabs {
+    order: 2;
+  }
+
+  .sidebar-content {
+    order: 3;
+  }
+
+  .selected-week-card {
+    order: 4;
+  }
+
+  .stage-panel {
+    order: 5;
+  }
+
+  .planner-panel {
+    order: 6;
+  }
+
+  .action-bar {
+    order: 7;
   }
 
   .tool-window {
